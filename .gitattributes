@@ -1,0 +1,2 @@
+# Generated transit tables: keep LF so a refresh on Windows only diffs real changes.
+*.tsv text eol=lf
