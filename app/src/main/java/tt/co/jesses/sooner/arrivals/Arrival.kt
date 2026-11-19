@@ -1,15 +1,15 @@
 package tt.co.jesses.sooner.arrivals
 
-/** One predicted or scheduled bus arrival at a stop. */
+/** One bus that is on the road and predicted to reach the stop. */
 data class Arrival(
     /** Route as shown to riders, e.g. "20" or "N20". */
     val route: String,
-    /** Trip headsign, e.g. "Victoria/to 41st Ave". Kept visible because one route can have several. */
+    /** Trip headsign, e.g. "Victoria/to 41st Ave", or "" if unknown. Kept visible because one route can have several. */
     val headsign: String,
-    /** Arrival time as Unix epoch seconds. */
+    /** Predicted arrival as Unix epoch seconds. */
     val arrivalEpochSeconds: Long,
-    /** True for a real-time prediction, false for a scheduled time. */
-    val isLive: Boolean,
+    /** Bus number, if the feed gives one. */
+    val vehicle: String? = null,
 ) {
     /** Whole minutes from [nowEpochSeconds] until arrival, never below zero. */
     fun minutesUntil(nowEpochSeconds: Long): Long =
