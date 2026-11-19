@@ -4,7 +4,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class ArrivalTest {
-    private fun arrivalAt(epoch: Long) = Arrival("20", "To SE Marine Dr", epoch, isLive = true)
+    private fun arrivalAt(epoch: Long) = Arrival("20", "To SE Marine Dr", epoch)
 
     @Test
     fun minutesUntilRoundsDown() {
