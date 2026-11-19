@@ -98,16 +98,16 @@
 50169	169	Northbound Main St @ E King Edward Ave	6613
 50174	174	Northbound Main St @ E 12 Ave	6613
 50176	176	Northbound Main St @ E Broadway	6613
-50177	177	Northbound Main St @ E 6th Ave	6613 6618 6624 6834 6840
-50178	178	Northbound Main St @ E 5th Ave	6613 6618 6624 6834 6840
-50179	179	Northbound Main St @ E 2nd Ave	6613 6618 6624 6834 6840
-50181	181	Main Street-Science World Station @ Bay 2	6613 6618 6624 6626 6834 6840
-50182	182	Northbound Main St @ National Ave	6613 6618 6624 6626 6834 6840
-50184	184	Northbound Main St @ E Georgia St	6613 6618 6624 6626 6834 6840
-50185	3428	Westbound E Hastings St @ Main St	6613 6618 6835 6838 6840
-50186	186	Westbound W Hastings St @ Carrall St	6613 6618 16718 6622 6625 6835 6838 6840
-50187	3429	Westbound W Hastings St @ Abbott St	6613 6618 16718 6622 6625 6835 6838 6840
-50188	188	Westbound W Hastings St @ Hamilton St	6613 6618 16718 6622 6625 6835 6838 6840
+50177	177	Northbound Main St @ E 6th Ave	6613 6618 6624 6840 6834
+50178	178	Northbound Main St @ E 5th Ave	6613 6618 6624 6840 6834
+50179	179	Northbound Main St @ E 2nd Ave	6613 6618 6624 6840 6834
+50181	181	Main Street-Science World Station @ Bay 2	6613 6618 6624 6626 6840 6834
+50182	182	Northbound Main St @ National Ave	6613 6618 6624 6626 6840 6834
+50184	184	Northbound Main St @ E Georgia St	6613 6618 6624 6626 6840 6834
+50185	3428	Westbound E Hastings St @ Main St	6613 6618 6840 6835 6838
+50186	186	Westbound W Hastings St @ Carrall St	6613 6618 16718 6622 6625 6840 6835 6838
+50187	3429	Westbound W Hastings St @ Abbott St	6613 6618 16718 6622 6625 6840 6835 6838
+50188	188	Westbound W Hastings St @ Hamilton St	6613 6618 16718 6622 6625 6840 6835 6838
 50189	189	Southbound Richards St @ W Hastings St	6615 6625
 50190	190	Southbound Richards St @ Dunsmuir St	6625
 50195	195	Westbound W 41 Ave @ Oak St	37810
@@ -122,14 +122,14 @@
 50210	211	Northbound Granville St @ Balfour Ave	6620 6830
 50211	212	Northbound Granville St @ Matthews Ave	6620 6830
 50214	215	Northbound Granville St @ W 12 Ave	6620 6622 6830
-50217	218	Northbound Granville St @ W 7th Ave	6620 16718 6622 6830 6833 6841
-50218	4879	Northbound Granville St @ W 5th Ave	6620 6622 6830 6833 6841
+50217	218	Northbound Granville St @ W 7th Ave	6620 16718 6622 6841 6830 6833
+50218	4879	Northbound Granville St @ W 5th Ave	6620 6622 6841 6830 6833
 50220	11429	Northbound Granville St @ Davie St	6614 6617 6620 16718 6622 6637
 50229	231	Southbound Main St @ E Hastings St	6613 6614 6617 6618 6840
-50230	232	Southbound Main St @ Keefer St	6613 6618 6624 6626 6834 6840
-50232	234	Southbound Main St @ National Ave	6613 6618 6624 6626 6834 6840
-50233	235	Main Street-Science World Station @ Bay 1	6613 6618 6624 6834 6840
-50234	236	Southbound Main St @ Switchmen St	6613 6618 6624 6834 6840
+50230	232	Southbound Main St @ Keefer St	6613 6618 6624 6626 6840 6834
+50232	234	Southbound Main St @ National Ave	6613 6618 6624 6626 6840 6834
+50233	235	Main Street-Science World Station @ Bay 1	6613 6618 6624 6840 6834
+50234	236	Southbound Main St @ Switchmen St	6613 6618 6624 6840 6834
 50236	238	Southbound Main St @ E 5th Ave	6613
 50239	13132	Southbound Main St @ E 10 Ave	6613
 50240	242	Southbound Main St @ E 12 Ave	6613
@@ -483,7 +483,7 @@
 50763	770	Northbound Granville St @ W 57 Ave	6620 6830
 50765	772	Northbound Granville St @ W 53 Ave	6620 6830
 50767	774	Northbound Granville St @ W 49 Ave	6620 6830
-50771	778	Eastbound Kingsway @ Main St	6618 6624 6834 6840
+50771	778	Eastbound Kingsway @ Main St	6618 6624 6840 6834
 50772	779	Eastbound E Broadway @ Kingsway	6618 6619 6840 6841
 50773	780	Eastbound E Broadway @ Prince Edward St	6618 6619 6840 6841
 50774	781	Eastbound E Broadway @ St. George St	6618 6619 6840 6841
@@ -635,7 +635,7 @@
 50972	981	Eastbound W Georgia St @ Denman St	6624 6635 6682 6683 6685 6686 6687 6690 6691 6693 6837
 50973	982	Eastbound W Georgia St @ Broughton St	6682 6683 6685 6686 6687 6690 6691 6837
 50974	983	Eastbound W Georgia St @ Bute St	6682 6683 6685 6686 6687 6690 6691 6837
-50976	985	Eastbound W Georgia St @ Granville St	6682 6683 6685 6686 6687 6690 6691 6693 6831 6834 6835 6836 6837 6838 6840
+50976	985	Eastbound W Georgia St @ Granville St	6682 6683 6685 6686 6687 6690 6691 6693 6840 6831 6834 6835 6836 6837 6838
 50978	11441	Westbound W Hastings St @ Granville St	37807
 50980	989	Lonsdale Quay @ Bay 5	36799
 50983	992	Southbound Cambie St @ W 45 Ave	6621 6831
@@ -650,8 +650,8 @@
 50996	10863	Northbound Cambie St @ W 57 Ave	6621 6831
 50997	1006	Northbound Cambie St @ W 54 Ave	6621 6831
 50999	11349	Langara-49th Station @ Bay 1	6621 6831
-51004	1013	Northbound Seymour St @ Davie St	6614 6617 6620 16718 6622 6637 6830 6833 6841
-51006	9366	Northbound Seymour St @ Nelson St	6614 6617 6620 16718 6622 6637 6830 6833 6841
+51004	1013	Northbound Seymour St @ Davie St	6614 6617 6620 16718 6622 6637 6841 6830 6833
+51006	9366	Northbound Seymour St @ Nelson St	6614 6617 6620 16718 6622 6637 6841 6830 6833
 51010	1019	Westbound W 64 Ave @ Adera St	6622
 51011	1020	Northbound Angus Dr @ W 64 Ave	6622
 51012	1021	Northbound Angus Dr @ W 61 Ave	6622
@@ -1486,11 +1486,11 @@
 52123	12027	Marpole Loop @ Bay 5	6642
 52126	2146	Eastbound SW Marine Dr @ Heather St	6620 6623 6642
 52128	2148	Eastbound SW Marine Dr @ Ash St	6620 6623 6642
-52131	2151	Eastbound SW Marine Dr @ Manitoba St	6613 6642 6835 6840
-52132	2152	Eastbound SE Marine Dr @ Ontario St	6613 6642 6835 6840
-52133	2153	Eastbound SE Marine Dr @ Main St	45596 6642 6835 6840
-52134	2154	Eastbound SE Marine Dr @ Prince Edward St	6642 6835 6840
-52135	2155	Eastbound SE Marine Dr @ St. George St	6642 6835 6840
+52131	2151	Eastbound SW Marine Dr @ Manitoba St	6613 6642 6840 6835
+52132	2152	Eastbound SE Marine Dr @ Ontario St	6613 6642 6840 6835
+52133	2153	Eastbound SE Marine Dr @ Main St	45596 6642 6840 6835
+52134	2154	Eastbound SE Marine Dr @ Prince Edward St	6642 6840 6835
+52135	2155	Eastbound SE Marine Dr @ St. George St	6642 6840 6835
 52136	2156	Eastbound SE Marine Dr @ Fraser St	45596 6642 6835
 52138	2158	Eastbound SE Marine Dr @ Ross St	6642 6835
 52140	2160	Eastbound SE Marine Dr @ Knight St	45596 6642 6835
@@ -1549,8 +1549,8 @@
 52206	2228	Westbound SE Marine Dr @ Inverness St	6642 6835
 52207	2229	Westbound SE Marine Dr @ Ross St	6642 6835
 52209	2231	Westbound SE Marine Dr @ Chester St	45596 6642 6835
-52213	2235	Westbound SW Marine Dr @ Ontario St	6613 6642 6835 6840
-52214	2236	Westbound SW Marine Dr @ Manitoba St	6613 6642 6835 6840
+52213	2235	Westbound SW Marine Dr @ Ontario St	6613 6642 6840 6835
+52214	2236	Westbound SW Marine Dr @ Manitoba St	6613 6642 6840 6835
 52217	2239	Westbound SW Marine Dr @ Ash St	6620 6623 6642
 52219	2241	Westbound SW Marine Dr @ Laurel St	6620 6623 6642
 52226	10558	Westbound Miller Rd @ Templeton St	6830
@@ -3607,10 +3607,10 @@
 54824	4876	Marpole Loop @ Bay 4	6620 6642
 54826	11403	Northbound Granville St @ W 10 Ave	6620 16718 6622 6830
 54828	11553	Southbound Howe St @ W Pender St	16717 6672 6673 6675
-54830	4882	Southbound Howe St @ W Georgia St	6614 6617 6620 16718 6622 6637 6830 6833 6841
-54831	4883	Southbound Howe St @ Robson St	6614 6617 6620 16718 6622 6637 6830 6833 6841
-54832	4884	Southbound Howe St @ Nelson St	6614 6617 6620 16718 6622 6637 6830 6833 6841
-54835	4887	Southbound Granville St @ W 5th Ave	6620 6622 6830 6833 6841
+54830	4882	Southbound Howe St @ W Georgia St	6614 6617 6620 16718 6622 6637 6841 6830 6833
+54831	4883	Southbound Howe St @ Robson St	6614 6617 6620 16718 6622 6637 6841 6830 6833
+54832	4884	Southbound Howe St @ Nelson St	6614 6617 6620 16718 6622 6637 6841 6830 6833
+54835	4887	Southbound Granville St @ W 5th Ave	6620 6622 6841 6830 6833
 54839	4891	Northbound 62B St @ 60 Ave	6748
 54840	4892	Northbound River Rd @ Deas Island Rd	6748
 54841	4893	Eastbound River Rd @ 6400 Block	6748
@@ -6256,7 +6256,7 @@
 58056	8299	Northbound 200 St @ Willowbrook Dr	6737
 58058	8301	Eastbound Miller Rd @ Russ Baker Way	6827 6830
 58061	10263	Southbound Cessna Dr @ Miller Rd	6827
-58065	1016	Northbound Seymour St @ W Georgia St	6830 6841
+58065	1016	Northbound Seymour St @ W Georgia St	6841 6830
 58067	8318	Southbound Clarence Taylor Cres @ 4600 Block	6745 6823
 58068	9324	Southbound Pinetree Way @ Plateau Blvd	30049
 58069	8324	Northbound No. 3 Rd @ Park Rd	6723 6724 6725 34542 6728 13684 6829
@@ -6305,7 +6305,7 @@
 58136	9124	Southbound Granville St @ W King Edward Ave	6620 6627 6830
 58143	1387	Kootenay Loop @ Bay 8	6630 6651 6838 38311
 58144	11532	Northbound Granville St @ Smithe St	6614 6617 6620 16718 6622 6637
-58145	8622	Westbound Kingsway @ E Broadway	6618 6624 6834 6840
+58145	8622	Westbound Kingsway @ E Broadway	6618 6624 6840 6834
 58147	8655	Northbound Willard St @ Marine Dr	6642
 58150	10914	Scott Road Station @ Bay 3	46604
 58152	8484	Westbound Steveston Hwy @ Hwy 99	6724 6725 34543 6828 6741
@@ -6528,7 +6528,7 @@
 58506	10931	Newton Exchange @ Unloading Bay	6821
 58508	9057	Westbound Logan Ave @ 56 Ave	23384 53893
 58509	9058	Southbound 222 St @ 50 Ave	34044
-58510	9067	Southbound Main St @ E 5th Ave	6618 6624 6834 6840
+58510	9067	Southbound Main St @ E 5th Ave	6618 6624 6840 6834
 58511	8919	Westbound Winston St @ Bainbridge Ave	6646
 58513	8975	Northbound 222 St @ Fraser Hwy	34044
 58515	8917	Westbound 91 Ave @ 152 St	6712
@@ -6621,7 +6621,7 @@
 58644	9013	Eastbound 40 Ave @ 204 St	6815
 58645	9014	Eastbound 40 Ave @ 206A St	6815
 58646	9011	Northbound 208 St @ 40 Ave	6815
-58647	9103	Westbound SE Marine Dr @ Poplar St	6618 6835 6840
+58647	9103	Westbound SE Marine Dr @ Poplar St	6618 6840 6835
 58648	10085	Northbound 52 St @ 7A Ave	6741 6742
 58649	9015	Northbound Mundy St @ Palliser Ave	6664
 58650	9119	Eastbound W 41 Ave @ Crown St	6633
@@ -7198,7 +7198,7 @@
 59575	10179	Southbound 124 St @ 59A Ave	6821
 59576	10180	Northbound N Boundary Rd @ Eton St	6776
 59577	9986	Northbound Cariboo Rd @ Cariboo Place	6643
-59580	10814	Southbound Main St @ E 2nd Ave	6613 6618 6624 6834 6840
+59580	10814	Southbound Main St @ E 2nd Ave	6613 6618 6624 6840 6834
 59581	10816	Northbound Main St @ E 16 Ave	6613
 59582	173	Northbound Main St @ E 14 Ave	6613
 59583	10812	Southbound Main St @ E 49 Ave	6613
@@ -7732,7 +7732,7 @@
 60528	12769	Eastbound Beach Ave @ Cardero St	30055
 60529	12768	Westbound Beach Ave @ Cardero St	30055
 60530	12770	Eastbound Pacific St @ Jervis St	30055
-60532	12760	Westbound SE Marine Dr @ Main St	6613 45596 6642 6835 6840
+60532	12760	Westbound SE Marine Dr @ Main St	6613 45596 6642 6840 6835
 60535	12764	Eastbound W Broadway @ Ash St	6619 6641 6841
 60537	12766	Capstan Station @ Bay 2	6724 6727 6830
 60542	12777	Westbound Hastings St @ MacDonald Ave	6651 6667 6838
@@ -7759,9 +7759,9 @@
 60585	12839	Eastbound Broadway @ Camrose Dr	6652
 60586	12826	Westbound Hastings St @ Willingdon Ave-	6651 6776 7322 6838 38311
 60587	12827	Westbound Hastings St @ Willingdon Ave	6650 6667 37807
-60589	12842	Westbound SE Marine Dr @ Prince Edward St	6642 6835 6840
+60589	12842	Westbound SE Marine Dr @ Prince Edward St	6642 6840 6835
 60592	12852	Northbound Granville St @ Park Dr	6620 6830
-60593	12971	Westbound SE Marine Dr @ Poplar St	6642 6835 6840
+60593	12971	Westbound SE Marine Dr @ Poplar St	6642 6840 6835
 60595	12958	Southbound Macdonald St @ W 16th Ave	6612 6836
 60596	12853	Westbound Vine Ave @ Anderson St	6715
 60597	12854	Southbound Glover Rd @ Eastleigh Cres	31820 6814
@@ -8285,8 +8285,8 @@
 61334	11243	Richmond-Brighouse Station @ Bay 4	6724 6726 6728
 61335	11384	Anderson Rd @ Buswell St	6728
 61336	11261	Eastbound Larson Rd @ Fir St	6762
-61337	11251	Marine Drive Station @ Bay 1	6613 6620 6621 6623 45596 6831 6835 6840
-61338	11252	Marine Drive Station @ Bay 2	6613 6620 6621 6623 45596 6642 6831 6835 6840
+61337	11251	Marine Drive Station @ Bay 1	6613 6620 6621 6623 45596 6840 6831 6835
+61338	11252	Marine Drive Station @ Bay 2	6613 6620 6621 6623 45596 6642 6840 6831 6835
 61339	13078	Southbound Granville St @ Balfour Ave	6620 6830
 61341	11379	Westbound Elmbridge Way @ Minoru Blvd	13684
 61342	11375	Westbound Elmbridge Way @ Alderbridge Way	13684
@@ -8376,10 +8376,10 @@
 61516	5035	Eastbound 96 Ave @ Prince Charles Blvd	6701 6710
 61517	13004	Westbound W 12 Ave @ Granville St	6622
 61518	11529	Westbound E Pender St @ Main St	6614 6617 6624 6626 16717 6834
-61519	11535	Northbound Seymour St @ Dunsmuir St	6614 6617 6620 16718 6622 6623 6625 6637 6830 6831 6833 6834 6835 6837 6838 6840 6841
+61519	11535	Northbound Seymour St @ Dunsmuir St	6614 6617 6620 16718 6622 6623 6625 6637 6840 6841 6830 6831 6833 6834 6835 6837 6838
 61520	11554	Westbound W Pender St @ Hamilton St	6614 6615 6617 6624 6626 16717 6672 6673 6675 6834
 61521	11540	Westbound Westminster Hwy @ Garden City Rd	6698
-61522	11542	Southbound Howe St @ Davie St	6614 6617 6620 16718 6622 6637 6830 6833 6841
+61522	11542	Southbound Howe St @ Davie St	6614 6617 6620 16718 6622 6637 6841 6830 6833
 61526	11544	Northbound No. 3 Rd @ Jones Rd	6723 6724
 61527	11547	Northbound Horseshoe Bay Dr @ Pasco Rd	6779
 61528	11546	Northbound Hwy 99 Onramp @ Kelvin Grove Way	6779
@@ -8618,7 +8618,7 @@
 61911	12022	Moody Centre Station @ Bay 3	30046
 61912	12020	Moody Centre Station @ Bay 4	6667
 61916	13106	Eastbound W 4th Ave @ Alma St	6635 6638
-61917	12036	Westbound W Pender St @ Howe St	6838 6840
+61917	12036	Westbound W Pender St @ Howe St	6840 6838
 61922	12332	Moody Centre Station @ Bay 9	30047
 61925	12034	Waterfront Station	
 61926	12044	Northbound 124 St @ 60 Ave	6821

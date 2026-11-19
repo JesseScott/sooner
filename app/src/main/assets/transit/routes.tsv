@@ -214,10 +214,8 @@
 8289	865	Samuel Robertson School Special
 6761	880	Windsor School Special
 6762	881	Carson Graham School Special
-13686	Canada Line	Canada Line
-30053	Expo Line	Expo Line
-HD	HD	HandyDART
-30052	Millennium Line	Millennium Line
+6840	N8	Fraser
+6841	N9	Broadway-Lougheed
 6830	N10	Granville-YVR
 6831	N15	Cambie
 6833	N17	West Broadway
@@ -226,13 +224,15 @@ HD	HD	HandyDART
 6836	N22	Macdonald
 6837	N24	Downtown/Lynn Valley
 6838	N35	Hastings St
-6840	N8	Fraser
-6841	N9	Broadway-Lougheed
 37808	R1	King George Blvd
 38311	R2	Marine-Willingdon
 37809	R3	Lougheed Hwy
 37810	R4	41st Avenue
 37807	R5	Hastings St
 46604	R6	Scott Road
+13686	Canada Line	Canada Line
+30053	Expo Line	Expo Line
+HD	HD	HandyDART
+30052	Millennium Line	Millennium Line
 6771	SeaBus	SeaBus
 6770	WCE	West Coast Express

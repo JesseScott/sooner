@@ -60,9 +60,12 @@ def display_route(short_name, long_name):
 
 
 def route_sort_key(display):
-    """Natural order: 2, 20, 99, N20, R4."""
-    m = re.match(r"^(\d+)(.*)$", display)
-    return (0, int(m.group(1)), m.group(2)) if m else (1, 0, display)
+    """Natural order: 2, 20, 99, then N8, N9, N35, then R4, then names."""
+    m = re.match(r"^([A-Za-z]*)(\d+)(.*)$", display)
+    if not m:
+        return (2, "", 0, display)
+    prefix, number, rest = m.groups()
+    return (1 if prefix else 0, prefix, int(number), rest)
 
 
 def trip_runs(trip_headsign, headsign_index):
