@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             SoonerTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { padding ->
-                    ArrivalsRoute(viewModel.controller, Modifier.padding(padding))
+                    ArrivalsRoute(viewModel.controller, viewModel.reader, Modifier.padding(padding))
                 }
             }
         }

@@ -21,6 +21,9 @@ Studio, or from the command line:
 - `app/` Android app (Kotlin, Jetpack Compose, CameraX, ML Kit).
 - `app/src/main/java/tt/co/jesses/sooner/arrivals/` the `ArrivalsSource`
   interface that the GTFS-realtime and translink.ca sources will implement.
+- `app/src/main/java/tt/co/jesses/sooner/scan/` photo capture (CameraX or
+  gallery), on-device OCR (ML Kit, bundled Latin model) and `StopNumberPicker`,
+  which picks the stop number out of the words on the sign.
 - `app/src/main/assets/transit/` stop, route and headsign tables generated
   from TransLink's static GTFS. Do not edit by hand.
 - `tools/` helper scripts, such as the GTFS-realtime decoder.

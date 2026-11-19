@@ -1,5 +1,6 @@
 package tt.co.jesses.sooner.ui
 
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,6 +13,8 @@ import tt.co.jesses.sooner.arrivals.Arrival
 import tt.co.jesses.sooner.arrivals.ArrivalsException
 import tt.co.jesses.sooner.arrivals.ArrivalsSource
 import tt.co.jesses.sooner.arrivals.Stop
+import tt.co.jesses.sooner.scan.OcrWord
+import tt.co.jesses.sooner.scan.StopNumberPicker
 import tt.co.jesses.sooner.transit.TransitData
 
 data class ArrivalsUiState(
@@ -24,6 +27,18 @@ data class ArrivalsUiState(
     val message: String? = null,
     /** When arrivals were last fetched, Unix seconds; null until the first fetch. */
     val updatedAt: Long? = null,
+    /** The confirm step after reading a photo; null when no photo is being read. */
+    val scan: ScanUiState? = null,
+)
+
+data class ScanUiState(
+    /** True while OCR runs. */
+    val reading: Boolean = true,
+    /** The number to confirm: the picker's guess, then whatever the user edits it to. */
+    val number: String = "",
+    /** Every 5-digit number found, best first, to offer as one-tap alternatives. */
+    val candidates: List<String> = emptyList(),
+    val message: String? = null,
 )
 
 /**
@@ -47,6 +62,60 @@ class ArrivalsController(
     fun onInputChange(text: String) {
         val digits = text.filter { it.isDigit() }.take(STOP_CODE_LENGTH)
         _state.update { it.copy(input = digits) }
+    }
+
+    /**
+     * Reads a stop number from a photo. [readWords] runs OCR; the picker then
+     * chooses the number and the user confirms or edits it with [confirmScan].
+     */
+    fun scan(readWords: suspend () -> List<OcrWord>) {
+        _state.update { it.copy(scan = ScanUiState(reading = true)) }
+        scope.launch {
+            val words = try {
+                readWords()
+            } catch (e: Exception) {
+                if (e is CancellationException) throw e
+                _state.update {
+                    if (it.scan == null) it
+                    else it.copy(scan = ScanUiState(reading = false, message = "Couldn't read that photo. Try again, or type the number."))
+                }
+                return@launch
+            }
+            val data = transit()
+            val pick = StopNumberPicker.pick(words) { data.stop(it) != null }
+            _state.update {
+                if (it.scan == null) return@update it // cancelled meanwhile
+                it.copy(
+                    scan = ScanUiState(
+                        reading = false,
+                        number = pick.number.orEmpty(),
+                        candidates = pick.candidates,
+                        message = if (pick.number == null) "No stop number found. Type it in, or try another photo." else null,
+                    ),
+                )
+            }
+        }
+    }
+
+    fun onScanFailed(message: String) {
+        _state.update { it.copy(scan = ScanUiState(reading = false, message = message)) }
+    }
+
+    fun onScanNumberChange(text: String) {
+        val digits = text.filter { it.isDigit() }.take(STOP_CODE_LENGTH)
+        _state.update { s -> s.copy(scan = s.scan?.copy(number = digits)) }
+    }
+
+    /** Takes the confirmed number into the stop field and looks it up, as if typed. */
+    fun confirmScan() {
+        val number = _state.value.scan?.number ?: return
+        if (number.length != STOP_CODE_LENGTH) return
+        _state.update { it.copy(input = number, scan = null) }
+        submit()
+    }
+
+    fun dismissScan() {
+        _state.update { it.copy(scan = null) }
     }
 
     /** Looks up the typed stop number. The screen then calls [refresh] while it's visible. */

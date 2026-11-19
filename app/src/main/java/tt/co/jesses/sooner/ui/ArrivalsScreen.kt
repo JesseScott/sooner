@@ -1,5 +1,11 @@
 package tt.co.jesses.sooner.ui
 
+import android.Manifest
+import android.content.pm.PackageManager
+import androidx.activity.compose.BackHandler
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,21 +20,28 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.core.content.ContextCompat
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -39,15 +52,72 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.repeatOnLifecycle
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 import tt.co.jesses.sooner.arrivals.Arrival
 import tt.co.jesses.sooner.arrivals.Stop
+import tt.co.jesses.sooner.scan.CameraCaptureScreen
+import tt.co.jesses.sooner.scan.StopSignReader
 import tt.co.jesses.sooner.ui.theme.SoonerTheme
 
 @Composable
-fun ArrivalsRoute(controller: ArrivalsController, modifier: Modifier = Modifier) {
+fun ArrivalsRoute(controller: ArrivalsController, reader: StopSignReader, modifier: Modifier = Modifier) {
     val state by controller.state.collectAsStateWithLifecycle()
     val lifecycle = LocalLifecycleOwner.current.lifecycle
+    val context = LocalContext.current
+
+    var showCamera by rememberSaveable { mutableStateOf(false) }
+    val cameraPermission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+        if (granted) {
+            showCamera = true
+        } else {
+            controller.onScanFailed("Sooner needs the camera to photograph the sign. You can choose a photo instead.")
+        }
+    }
+    val pickPhoto = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+        if (uri != null) controller.scan { withContext(Dispatchers.IO) { reader.read(context, uri) } }
+    }
+    val takePhoto = {
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            showCamera = true
+        } else {
+            cameraPermission.launch(Manifest.permission.CAMERA)
+        }
+    }
+    val choosePhoto = {
+        pickPhoto.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+    }
+
+    if (showCamera) {
+        BackHandler { showCamera = false }
+        CameraCaptureScreen(
+            onCaptured = { photo ->
+                showCamera = false
+                controller.scan { reader.read(photo) }
+            },
+            onError = {
+                showCamera = false
+                controller.onScanFailed(it)
+            },
+            onClose = { showCamera = false },
+            modifier = modifier,
+        )
+        return
+    }
+
+    state.scan?.let { scan ->
+        ScanConfirmDialog(
+            scan = scan,
+            onNumberChange = controller::onScanNumberChange,
+            onConfirm = controller::confirmScan,
+            onRetake = {
+                controller.dismissScan()
+                takePhoto()
+            },
+            onDismiss = controller::dismissScan,
+        )
+    }
 
     // Refresh about once a minute, only while the screen is visible.
     LaunchedEffect(state.stop?.id) {
@@ -77,7 +147,69 @@ fun ArrivalsRoute(controller: ArrivalsController, modifier: Modifier = Modifier)
         onInputChange = controller::onInputChange,
         onSubmit = controller::submit,
         onRefresh = { controller.refresh(force = true) },
+        onTakePhoto = takePhoto,
+        onChoosePhoto = choosePhoto,
         modifier = modifier,
+    )
+}
+
+/** Shows the number read from the photo for the user to confirm or fix. */
+@Composable
+private fun ScanConfirmDialog(
+    scan: ScanUiState,
+    onNumberChange: (String) -> Unit,
+    onConfirm: () -> Unit,
+    onRetake: () -> Unit,
+    onDismiss: () -> Unit,
+) {
+    val canConfirm = !scan.reading && scan.number.length == ArrivalsController.STOP_CODE_LENGTH
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(if (scan.reading) "Reading the sign…" else "Is this the stop number?") },
+        text = {
+            if (scan.reading) {
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+                    CircularProgressIndicator()
+                }
+            } else {
+                Column {
+                    scan.message?.let {
+                        Text(it, color = MaterialTheme.colorScheme.error)
+                        Spacer(Modifier.padding(top = 8.dp))
+                    }
+                    OutlinedTextField(
+                        value = scan.number,
+                        onValueChange = onNumberChange,
+                        label = { Text("Bus stop number") },
+                        singleLine = true,
+                        textStyle = MaterialTheme.typography.headlineSmall,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Go),
+                        keyboardActions = KeyboardActions(onGo = { if (canConfirm) onConfirm() }),
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                    val others = scan.candidates.filter { it != scan.number }
+                    if (others.isNotEmpty()) {
+                        Spacer(Modifier.padding(top = 8.dp))
+                        Text(
+                            "Other numbers on the sign",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            others.take(3).forEach { number ->
+                                SuggestionChip(onClick = { onNumberChange(number) }, label = { Text(number) })
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onConfirm, enabled = canConfirm) { Text("Show buses") }
+        },
+        dismissButton = {
+            if (!scan.reading) TextButton(onClick = onRetake) { Text("Retake") }
+        },
     )
 }
 
@@ -90,6 +222,8 @@ fun ArrivalsScreen(
     onInputChange: (String) -> Unit,
     onSubmit: () -> Unit,
     onRefresh: () -> Unit,
+    onTakePhoto: () -> Unit,
+    onChoosePhoto: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val keyboard = LocalSoftwareKeyboardController.current
@@ -114,6 +248,10 @@ fun ArrivalsScreen(
             )
             Spacer(Modifier.width(12.dp))
             Button(onClick = submit, enabled = canSubmit) { Text("Go") }
+        }
+        Row(Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Button(onClick = onTakePhoto) { Text("Photo of sign") }
+            OutlinedButton(onClick = onChoosePhoto) { Text("Choose photo") }
         }
 
         state.stop?.let { stop ->
@@ -213,6 +351,8 @@ private fun ArrivalsScreenPreview() {
             onInputChange = {},
             onSubmit = {},
             onRefresh = {},
+            onTakePhoto = {},
+            onChoosePhoto = {},
         )
     }
 }

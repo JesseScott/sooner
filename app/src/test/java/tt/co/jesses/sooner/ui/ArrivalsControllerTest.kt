@@ -10,6 +10,7 @@ import tt.co.jesses.sooner.arrivals.Arrival
 import tt.co.jesses.sooner.arrivals.ArrivalsException
 import tt.co.jesses.sooner.arrivals.ArrivalsSource
 import tt.co.jesses.sooner.arrivals.Stop
+import tt.co.jesses.sooner.scan.OcrWord
 import tt.co.jesses.sooner.transit.TransitData
 
 class ArrivalsControllerTest {
@@ -113,5 +114,50 @@ class ArrivalsControllerTest {
     fun minutesTextSaysNowUnderAMinute() {
         assertEquals("Now", minutesText(0))
         assertEquals("8 min", minutesText(8))
+    }
+
+    @Test
+    fun scanPicksKnownStopThenConfirmLoadsIt() = runTest {
+        val c = controller()
+        c.scan {
+            listOf(
+                OcrWord("STOP", 0, 0, 40, 20),
+                OcrWord("99999", 50, 0, 100, 20), // nearest the label, but no such stop
+                OcrWord("51238", 0, 300, 50, 320),
+            )
+        }
+        val scan = c.state.value.scan!!
+        assertEquals(false, scan.reading)
+        assertEquals("51238", scan.number)
+        assertEquals(listOf("51238", "99999"), scan.candidates)
+
+        c.confirmScan()
+        assertNull(c.state.value.scan)
+        assertEquals("51238", c.state.value.input)
+        assertEquals("1248", c.state.value.stop?.id)
+    }
+
+    @Test
+    fun scanWithNoNumberAsksUserToType() = runTest {
+        val c = controller()
+        c.scan { listOf(OcrWord("BUS", 0, 0, 30, 20)) }
+        val scan = c.state.value.scan!!
+        assertEquals("", scan.number)
+        assertEquals("No stop number found. Type it in, or try another photo.", scan.message)
+        c.confirmScan() // nothing to confirm yet
+        assertNull(c.state.value.stop)
+
+        c.onScanNumberChange("51 238x")
+        c.confirmScan()
+        assertEquals("1248", c.state.value.stop?.id)
+    }
+
+    @Test
+    fun scanFailureShowsMessageAndDismissClears() = runTest {
+        val c = controller()
+        c.scan { throw IllegalStateException("boom") }
+        assertEquals("Couldn't read that photo. Try again, or type the number.", c.state.value.scan?.message)
+        c.dismissScan()
+        assertNull(c.state.value.scan)
     }
 }
