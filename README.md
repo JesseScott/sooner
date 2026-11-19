@@ -21,6 +21,8 @@ Studio, or from the command line:
 - `app/` Android app (Kotlin, Jetpack Compose, CameraX, ML Kit).
 - `app/src/main/java/tt/co/jesses/sooner/arrivals/` the `ArrivalsSource`
   interface that the GTFS-realtime and translink.ca sources will implement.
+- `app/src/main/assets/transit/` stop, route and headsign tables generated
+  from TransLink's static GTFS. Do not edit by hand.
 - `tools/` helper scripts, such as the GTFS-realtime decoder.
 - `docs/` research and plan.
 
@@ -34,3 +36,15 @@ translink.apiKey=YOUR_KEY
 ```
 
 The build reads it into `BuildConfig.TRANSLINK_API_KEY`. Never commit the key.
+
+## Refreshing the transit tables
+
+TransLink republishes its static GTFS when schedules change. To refresh the
+bundled tables (Python 3, no packages needed; downloads about 16 MB):
+
+```
+python3 tools/build_transit_data.py
+```
+
+Commit the changed files under `app/src/main/assets/transit/`. `feed.tsv`
+records which GTFS version they came from.

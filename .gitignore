@@ -13,3 +13,6 @@ captures/
 # Data downloads
 *.pb
 google_transit.zip
+
+# Python
+__pycache__/
