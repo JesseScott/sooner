@@ -16,3 +16,9 @@ google_transit.zip
 
 # Python
 __pycache__/
+
+# Firebase (per-project config and credentials; see docs/FIREBASE.md)
+google-services.json
+*service-account*.json
+*.jks
+*.keystore

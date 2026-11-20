@@ -13,6 +13,7 @@ import tt.co.jesses.sooner.arrivals.Arrival
 import tt.co.jesses.sooner.arrivals.ArrivalsException
 import tt.co.jesses.sooner.arrivals.ArrivalsSource
 import tt.co.jesses.sooner.arrivals.Stop
+import tt.co.jesses.sooner.config.SoonerFlags
 import tt.co.jesses.sooner.scan.OcrWord
 import tt.co.jesses.sooner.scan.StopNumberPicker
 import tt.co.jesses.sooner.transit.TransitData
@@ -50,6 +51,8 @@ class ArrivalsController(
     private val loadTransit: suspend () -> TransitData,
     private val sourceFor: (TransitData) -> ArrivalsSource,
     private val nowEpochSeconds: () -> Long = { System.currentTimeMillis() / 1000 },
+    /** Read on every use, so Remote Config changes apply without a restart. */
+    private val flags: () -> SoonerFlags = { SoonerFlags() },
 ) {
     private val _state = MutableStateFlow(ArrivalsUiState())
     val state: StateFlow<ArrivalsUiState> = _state.asStateFlow()
@@ -136,7 +139,7 @@ class ArrivalsController(
 
     /**
      * Fetches arrivals for the current stop. Unless [force], does nothing if the
-     * last fetch was under [MIN_REFRESH_SECONDS] ago, so returning to the app
+     * last fetch was under [SoonerFlags.minRefreshSeconds] ago, so returning to the app
      * doesn't download the 400 KB feed again straight away.
      */
     fun refresh(force: Boolean = false) {
@@ -145,10 +148,11 @@ class ArrivalsController(
             if (!refreshLock.tryLock()) return@launch
             try {
                 val last = _state.value.updatedAt
-                if (!force && last != null && nowEpochSeconds() - last < MIN_REFRESH_SECONDS) return@launch
+                if (!force && last != null && nowEpochSeconds() - last < flags().minRefreshSeconds) return@launch
                 _state.update { it.copy(loading = true) }
                 val result = try {
-                    Result.success(arrivalsSource().arrivals(stop))
+                    val horizon = nowEpochSeconds() + flags().maxArrivalMinutes * 60
+                    Result.success(arrivalsSource().arrivals(stop).filter { it.arrivalEpochSeconds <= horizon })
                 } catch (e: ArrivalsException) {
                     Result.failure(e)
                 }
@@ -165,6 +169,9 @@ class ArrivalsController(
         }
     }
 
+    /** How long the screen waits between automatic refreshes. */
+    val refreshIntervalMillis: Long get() = flags().refreshIntervalSeconds * 1000
+
     private suspend fun transit(): TransitData = transitLock.withLock {
         transit ?: loadTransit().also { transit = it }
     }
@@ -174,8 +181,6 @@ class ArrivalsController(
 
     companion object {
         const val STOP_CODE_LENGTH = 5
-        const val MIN_REFRESH_SECONDS = 30L
-        const val REFRESH_INTERVAL_MILLIS = 60_000L
     }
 }
 

@@ -10,6 +10,7 @@ import tt.co.jesses.sooner.arrivals.Arrival
 import tt.co.jesses.sooner.arrivals.ArrivalsException
 import tt.co.jesses.sooner.arrivals.ArrivalsSource
 import tt.co.jesses.sooner.arrivals.Stop
+import tt.co.jesses.sooner.config.SoonerFlags
 import tt.co.jesses.sooner.scan.OcrWord
 import tt.co.jesses.sooner.transit.TransitData
 
@@ -18,6 +19,7 @@ class ArrivalsControllerTest {
     private var fetches = 0
     private var next: () -> List<Arrival> = { listOf(Arrival("20", "Victoria/To SE Marine Dr", now + 534, "2531")) }
     private var transitLoads = 0
+    private var flags = SoonerFlags()
 
     private val transit = TransitData.parse(
         "51238\t1248\tSouthbound Commercial Dr @ William St\t6625 6835\n".reader().buffered(),
@@ -38,6 +40,7 @@ class ArrivalsControllerTest {
             }
         },
         nowEpochSeconds = { now },
+        flags = { flags },
     )
 
     @Test
@@ -82,9 +85,39 @@ class ArrivalsControllerTest {
         assertEquals(1, fetches)
         c.refresh(force = true)
         assertEquals(2, fetches)
-        now += ArrivalsController.MIN_REFRESH_SECONDS
+        now += SoonerFlags.DEFAULT_MIN_REFRESH_SECONDS
         c.refresh()
         assertEquals(3, fetches)
+    }
+
+    @Test
+    fun remoteMinRefreshAppliesWithoutRecreatingController() = runTest {
+        val c = controller()
+        c.onInputChange("51238")
+        c.submit()
+        c.refresh()
+        now += 15
+        c.refresh()
+        assertEquals(1, fetches)
+        flags = SoonerFlags(minRefreshSeconds = 10)
+        c.refresh()
+        assertEquals(2, fetches)
+        assertEquals(60_000L, c.refreshIntervalMillis)
+    }
+
+    @Test
+    fun arrivalsBeyondMaxMinutesAreHidden() = runTest {
+        next = {
+            listOf(
+                Arrival("20", "Victoria/To SE Marine Dr", now + 5 * 60, "2531"),
+                Arrival("20", "Victoria/To SE Marine Dr", now + 95 * 60, "2532"),
+            )
+        }
+        val c = controller()
+        c.onInputChange("51238")
+        c.submit()
+        c.refresh()
+        assertEquals(listOf("2531"), c.state.value.arrivals.map { it.vehicle })
     }
 
     @Test

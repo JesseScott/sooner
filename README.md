@@ -40,6 +40,12 @@ translink.apiKey=YOUR_KEY
 
 The build reads it into `BuildConfig.TRANSLINK_API_KEY`. Never commit the key.
 
+## Firebase
+
+Crashlytics, Remote Config and beta builds through App Distribution are set up
+but optional: drop `app/google-services.json` in to turn them on. See
+[docs/FIREBASE.md](docs/FIREBASE.md).
+
 ## Refreshing the transit tables
 
 TransLink republishes its static GTFS when schedules change. To refresh the
