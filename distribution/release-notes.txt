@@ -1,0 +1,1 @@
+Beta build of Sooner. Photograph a bus stop sign, or type the stop number, to see live arrivals.

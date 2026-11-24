@@ -8,7 +8,10 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import tt.co.jesses.sooner.config.SoonerFirebase
 import tt.co.jesses.sooner.ui.ArrivalsRoute
 import tt.co.jesses.sooner.ui.ArrivalsViewModel
 import tt.co.jesses.sooner.ui.theme.SoonerTheme
@@ -20,9 +23,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            val flags by SoonerFirebase.flags.collectAsStateWithLifecycle()
             SoonerTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { padding ->
-                    ArrivalsRoute(viewModel.controller, viewModel.reader, Modifier.padding(padding))
+                    ArrivalsRoute(viewModel.controller, viewModel.reader, Modifier.padding(padding), scanEnabled = flags.scanEnabled)
                 }
             }
         }

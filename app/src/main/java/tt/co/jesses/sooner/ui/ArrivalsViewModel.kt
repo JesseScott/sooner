@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import tt.co.jesses.sooner.BuildConfig
 import tt.co.jesses.sooner.arrivals.GtfsRealtimeArrivalsSource
+import tt.co.jesses.sooner.config.SoonerFirebase
 import tt.co.jesses.sooner.scan.StopSignReader
 import tt.co.jesses.sooner.transit.loadTransitData
 
@@ -13,6 +14,7 @@ class ArrivalsViewModel(application: Application) : AndroidViewModel(application
         scope = viewModelScope,
         loadTransit = { loadTransitData(application) },
         sourceFor = { transit -> GtfsRealtimeArrivalsSource(BuildConfig.TRANSLINK_API_KEY, transit) },
+        flags = { SoonerFirebase.flags.value },
     )
 
     val reader = StopSignReader()

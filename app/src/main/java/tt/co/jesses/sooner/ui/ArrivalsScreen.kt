@@ -62,7 +62,12 @@ import tt.co.jesses.sooner.scan.StopSignReader
 import tt.co.jesses.sooner.ui.theme.SoonerTheme
 
 @Composable
-fun ArrivalsRoute(controller: ArrivalsController, reader: StopSignReader, modifier: Modifier = Modifier) {
+fun ArrivalsRoute(
+    controller: ArrivalsController,
+    reader: StopSignReader,
+    modifier: Modifier = Modifier,
+    scanEnabled: Boolean = true,
+) {
     val state by controller.state.collectAsStateWithLifecycle()
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     val context = LocalContext.current
@@ -119,13 +124,13 @@ fun ArrivalsRoute(controller: ArrivalsController, reader: StopSignReader, modifi
         )
     }
 
-    // Refresh about once a minute, only while the screen is visible.
+    // Refresh about once a minute (Remote Config can change it), only while the screen is visible.
     LaunchedEffect(state.stop?.id) {
         if (state.stop == null) return@LaunchedEffect
         lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
             while (true) {
                 controller.refresh()
-                delay(ArrivalsController.REFRESH_INTERVAL_MILLIS)
+                delay(controller.refreshIntervalMillis)
             }
         }
     }
@@ -150,6 +155,7 @@ fun ArrivalsRoute(controller: ArrivalsController, reader: StopSignReader, modifi
         onTakePhoto = takePhoto,
         onChoosePhoto = choosePhoto,
         modifier = modifier,
+        scanEnabled = scanEnabled,
     )
 }
 
@@ -225,6 +231,7 @@ fun ArrivalsScreen(
     onTakePhoto: () -> Unit,
     onChoosePhoto: () -> Unit,
     modifier: Modifier = Modifier,
+    scanEnabled: Boolean = true,
 ) {
     val keyboard = LocalSoftwareKeyboardController.current
     val canSubmit = state.input.length == ArrivalsController.STOP_CODE_LENGTH
@@ -249,9 +256,11 @@ fun ArrivalsScreen(
             Spacer(Modifier.width(12.dp))
             Button(onClick = submit, enabled = canSubmit) { Text("Go") }
         }
-        Row(Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            Button(onClick = onTakePhoto) { Text("Photo of sign") }
-            OutlinedButton(onClick = onChoosePhoto) { Text("Choose photo") }
+        if (scanEnabled) {
+            Row(Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Button(onClick = onTakePhoto) { Text("Photo of sign") }
+                OutlinedButton(onClick = onChoosePhoto) { Text("Choose photo") }
+            }
         }
 
         state.stop?.let { stop ->
