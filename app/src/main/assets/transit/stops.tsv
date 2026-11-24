@@ -131,7 +131,7 @@
 50233	235	Main Street-Science World Station @ Bay 1	6613 6618 6624 6840 6834
 50234	236	Southbound Main St @ Switchmen St	6613 6618 6624 6840 6834
 50236	238	Southbound Main St @ E 5th Ave	6613
-50239	13132	Southbound Main St @ E 10 Ave	6613
+50238	240	Southbound Main St @ E Broadway	6613
 50240	242	Southbound Main St @ E 12 Ave	6613
 50241	243	Southbound Main St @ E 14 Ave	6613
 50242	244	Southbound Main St @ E 16 Ave	6613
@@ -546,7 +546,7 @@
 50846	853	Northbound Fraser St @ E 10 Ave	6618 6840
 50848	855	Westbound E Broadway @ Guelph St	6618 6619 6840 6841
 50849	856	Westbound E Broadway @ Prince Edward St	6618 6619 6840 6841
-50850	857	Westbound E Broadway @ Scotia St	6618 6619 6840 6841
+50850	857	Westbound E Broadway @ Scotia St	6618 6619 6641 6840 6841
 50852	859	Westbound W Hastings St @ Richards St	6613 6618 16718 6622 6835
 50853	860	Southbound Granville St @ W 41 Ave	6620 6633 6830
 50856	863	Southbound Granville St @ W 49 Ave	6620 6636 6830
@@ -594,7 +594,6 @@
 50917	925	Westbound E Broadway @ Glen Dr	6619 6841
 50918	926	Westbound E Broadway @ Windsor St	6619 6841
 50919	927	Westbound E Broadway @ Prince Albert St	6619 6841
-50920	928	Westbound W Broadway @ Ontario St	6619 6841
 50921	929	Westbound W Broadway @ Columbia St	6619 6841
 50925	933	Westbound W Broadway @ Heather St	6619 6841
 50926	934	Westbound W Broadway @ Willow St	6641
@@ -631,7 +630,6 @@
 50967	976	Southbound Victoria Diversion @ Commercial St	6625 6835
 50968	977	Southbound Victoria Dr @ Victoria Diversion	6625 6835
 50970	8537	Southbound Victoria Dr @ E 22 Ave	6625 6835
-50971	980	Southbound Victoria Dr @ E 26 Ave	6625 6835
 50972	981	Eastbound W Georgia St @ Denman St	6624 6635 6682 6683 6685 6686 6687 6690 6691 6693 6837
 50973	982	Eastbound W Georgia St @ Broughton St	6682 6683 6685 6686 6687 6690 6691 6837
 50974	983	Eastbound W Georgia St @ Bute St	6682 6683 6685 6686 6687 6690 6691 6837
@@ -1086,7 +1084,6 @@
 51542	1554	Northbound Willingdon Ave @ Goard Way	6627 6651 38311
 51543	1555	Northbound Willingdon Ave @ Canada Way	6627 6651
 51545	1557	Southbound Willingdon Ave @ Canada Way	6627 6651 38311
-51547	1559	Southbound Willingdon Ave @ Sanderson Way	6627 6651 38311
 51548	1560	Westbound Sanderson Way @ Gilmore Way	6627
 51549	1561	Westbound Kincaid St @ Gilmore Way	6627 6650
 51551	1563	Westbound Kincaid St @ Smith Ave	6627
@@ -2408,6 +2405,7 @@
 53343	3052	Eastbound Mariner Way @ Dewdney Trunk Rd	6660 6661
 53344	3381	Eastbound Dewdney Trunk Rd @ Irvine St	30039 30040 30041
 53345	3382	Southbound Westwood St @ Dewdney Trunk Rd	30039 30040 30041
+53346	3383	Eastbound Kingsway Ave @ Burleigh Ave	30039 30040 30041
 53347	3384	Eastbound Kingsway Ave @ Dixon St	30039 30040 30041
 53348	3385	Port Coquitlam Station @ Bay 6	6666 6667 22638
 53349	3386	Eastbound Spuraway Ave @ Pinnacle St	6659
@@ -2443,6 +2441,7 @@
 53381	3418	Westbound Brunette Ave @ Laurentian Cres	6661 6664
 53382	3419	Westbound Brunette Ave @ Schoolhouse St	6661 6664
 53383	3420	Westbound Brunette Ave @ Laval St	6661 6664
+53384	11651	Westbound Brunette Ave @ Marmont St	6661 6664
 53385	3422	Westbound Brunette Ave @ Nelson St	6661 6664
 53386	3423	Westbound Brunette Ave @ Lebleu St	6661 6664 6665
 53388	11552	Westbound Lougheed Hwy @ 700 Block	6665
@@ -5617,7 +5616,6 @@
 57236	7307	Westbound Walnut Grove Dr @ 212 St	6739 6814
 57237	7308	Southbound Walnut Grove Dr @ 8900 Block	6739 6814
 57239	7310	Eastbound 88 Ave @ Walnut Grove Dr	6739 6814
-57240	7311	Eastbound 88 Ave @ 212 St	6739 6814
 57241	7312	Eastbound 88 Ave @ 214B St	6739 6814
 57242	7313	Eastbound 88 Ave @ 216 St	6739 6814
 57243	7314	Eastbound 88 Ave @ 22000 Block	6739 6814
@@ -7362,6 +7360,7 @@
 59845	11259	Southbound Ioco Rd @ Suter Brook Way	6667 30046 6841
 59846	10607	Eastbound Derwent Way @ Humber Place	6644
 59847	10407	Westbound 32 Ave Diversion @ 32 Ave	6717 31819
+59848	9948	Eastbound Carnarvon St @ Quayside Dr	6790
 59849	10413	Eastbound Fraser Hwy @ 216 St	23384
 59851	10427	Westbound 20 Ave @ Rotary Way	31816
 59852	10428	South Delta Exchange @ Bay 3	11696 6843 6844
@@ -7369,7 +7368,6 @@
 59854	10605	Southbound Glover Rd @ Rawlison Cres	6739 6814
 59855	10641	Westbound Fraser Hwy @ 182 St	6738
 59856	10871	Eastbound Fraser Hwy @ 182 St	6738
-59862	13121	Westbound E Broadway @ Brunswick St	6641
 59863	12173	Langley Centre @ Bay 7	18705
 59864	12794	Southbound Scott Rd @ 96 Ave	6701 6703 46604
 59868	10429	Edmonds Station @ Bay 7	6817 6806
@@ -7696,6 +7694,7 @@
 60452	13022	Westbound Barnston Dr E @ 175A St	48855
 60453	13023	Westbound 100 Ave @ 174 St	48855
 60454	13024	Westbound Barnston Dr W @ 172 St	48855
+60455	13025	Westbound Barnston Dr W @ 170A St	48855
 60456	13027	Northbound 168 St @ 103 Ave	48855
 60457	13029	Westbound 104 Ave @ Oak Gate	48855
 60458	13028	Westbound 104 Ave @ 164 St	48855
@@ -7838,6 +7837,7 @@
 60708	12146	Eastbound Fraser Hwy @ 260 St	23384
 60709	1304	Southbound Knight St @ E 17 Ave	6626
 60714	10646	Eastbound Fraser Hwy @ 68 Ave	31820 6738
+60715	10645	Westbound Fraser Hwy @ 68 Ave	31820 6738
 60717	11329	Eastbound Fraser Hwy @ 19000 Block	6738
 60718	5950	Eastbound 84 Ave @ 158 St	6712 8290
 60719	13009	Westbound 102 Ave @ Whalley Blvd	6708
@@ -8455,14 +8455,14 @@
 61643	11839	Northbound 192 St @ 28 Ave	18705
 61645	11698	Southbound Elliott St @ E 54 Ave	6631
 61647	11701	Southbound 123A St @ 96 Ave	6702
-61648	11711	New Westminster Station @ Bay 1	46099 6790
-61649	11714	New Westminster Station @ Bay 2	6796 16719 6647 6705
+61649	11714	New Westminster Station @ Bay 2	46099 6790 6796 16719 6705
 61650	11713	New Westminster Station @ Bay 3	6645
 61651	11715	New Westminster Station @ Bay 4	6649 6705 6834
 61652	11716	New Westminster Station @ Bay 5	6796 16719
 61654	11718	New Westminster Station @ Bay 7	6645
 61655	11719	New Westminster Station @ Bay 8	6790
 61656	11712	New Westminster Station @ Bay 9	46099 6790
+61657	11710	New Westminster Station @ Bay 10	6647
 61658	11721	Northbound University Dr @ 107A Ave	6712 6818
 61659	11720	Southbound University Dr @ 107A Ave	6712 6818
 61660	11724	Eastbound W Broadway @ Yew St	6641
@@ -8736,9 +8736,13 @@
 62156	13166	Eastbound W 41st Ave @ Angus Dr	6633
 62157	13157	Westbound Fraser Hwy @ 188 St	6738 23384
 62158	13159	Southbound Renfrew St @ E Pender St	6622
+62160	13200	Westbound E Hastings St @ Kootenay Loop	6651
 62164	13185	Southbound Garden City Rd @ Capstan Way	6727
 62165	13184	Eastbound 10 Ave @ 5th St	6643
 62166	13183	Eastbound 10 Ave @ 2nd St	6643
 62167	13182	Eastbound 10 Ave @ McBride Blvd	6643
 62169	13188	Westbound Kingsway @ Smith Ave	6624 6834
+62170	13199	Eastbound 88 Ave @ 212 St	6739 6814
 62179	13195	Westbound 56 Ave @ 208 St	23384 53893
+62183	13202	Westbound W Broadway @ Quebec St	6619 6841
+62184	13198	Southbound Willingdon Ave @ Sanderson Way	6651 38311
